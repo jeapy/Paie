@@ -1,0 +1,40 @@
+{% extends "JP\AdminBundle::layout.html.twig" %}
+
+{% block body %}
+    <h1>Offre</h1>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ offre.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ offre.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ offre.prix }}</td>
+            </tr>
+            <tr>
+                <th>Nbulletin</th>
+                <td>{{ offre.nbulletin }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_offre_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_offre_edit', { 'id': offre.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

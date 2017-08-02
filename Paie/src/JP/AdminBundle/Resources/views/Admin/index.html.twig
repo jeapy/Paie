@@ -1,0 +1,52 @@
+{% extends "JP\AdminBundle::layout.html.twig" %}
+
+{% block title %}€ASYPAY | ADMINISTRATION{% endblock %}
+
+{% block body %}
+
+					
+ <div class="content-box-large ">
+                <div class="panel-heading">
+                    
+            <h2 class="ban"> INTERFACE D'ADMINISTRATION</h2>   
+          
+              </div>
+            </div>
+
+            <div class="content-box-large"> 
+                    <div class="panel-body">
+                <h1>Users list</h1>
+
+    <table class="table table-striped">
+       <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('admin_user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.username }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_user_show', { 'id': user.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_user_edit', { 'id': user.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> 
+                 
+          </div>
+          </div>
+            
+
+{% endblock %}

@@ -1,0 +1,83 @@
+jp_fiche_paie_compagny:
+    resource: "@JPFichePaieBundle/Resources/config/routing/compagny.yml"
+    prefix:   /compagny/
+
+
+jp_fiche_paie_fichepaie:
+    resource: "@JPFichePaieBundle/Resources/config/routing/fichepaie.yml"
+    prefix:   /fichepaie/
+
+jp_fiche_paie_home:
+    path:     /
+    defaults: 
+        _controller: JPFichePaieBundle:Home:index 
+
+jp_fiche_paie_offre:
+    path:     /offre
+    defaults: 
+        _controller: JPFichePaieBundle:Home:offre 
+jp_fiche_paie_fiche:
+    path:     /fiche
+    defaults: 
+        _controller: JPFichePaieBundle:Home:fiche 
+
+jp_fiche_paie_editfiche:
+    path:     /fiche/{id}/editfiche
+    defaults: 
+        _controller: JPFichePaieBundle:Home:editFiche 
+
+jp_fiche_paie_deletefiche:
+    path:     /fiche/{id}/delete
+    defaults: 
+        _controller: JPFichePaieBundle:Home:deleteFiche 
+
+jp_fiche_paie_compte:
+    path:     /compte/
+    defaults: 
+        _controller: JPFichePaieBundle:Home:compte 
+
+jp_fiche_paie_document:
+    path:     /compte/document/
+    defaults: 
+        _controller: JPFichePaieBundle:Home:document 
+
+jp_fiche_paie_comptedit:
+    path:     /compte/edit
+    defaults: 
+        _controller: JPFichePaieBundle:Home:comptedit
+
+
+jp_fiche_paie_paiement:
+     path:     /{id}/paiement
+     defaults: 
+        _controller: JPFichePaieBundle:Home:paiement
+
+jp_fiche_paie_payer:
+     path:     /paiement/{id}/payer
+     defaults: 
+        _controller: JPFichePaieBundle:Home:payer
+
+jp_fiche_paie_facture:
+     path:     /facture
+     defaults: 
+        _controller: JPFichePaieBundle:Home:facture
+
+jp_fiche_paie_imprimefacture:
+     path:     /{id}/imprimefacture
+     defaults: 
+        _controller: JPFichePaieBundle:Home:imprimefacture
+
+
+
+jp_fiche_paie_pdf:
+    path:     /{id}/pdf
+    defaults: 
+        _controller: JPFichePaieBundle:Home:pdf
+
+
+jp_fiche_paie_getcompagny:
+    path:  /getcompagny
+    defaults: 
+        _controller: JPFichePaieBundle:Home:getcompagny 
+    requirements:
+        _method: GET

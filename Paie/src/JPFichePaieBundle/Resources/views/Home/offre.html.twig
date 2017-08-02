@@ -1,0 +1,52 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | Offre{% endblock %}
+
+{% block body %}
+
+ 
+     <div class=" col-md-12 boxoffre">
+          <section>
+                    <!-- /.row -->
+                    <div class="row packages">
+
+
+
+                      {% for offre in offres %}
+                        <div class="col-md-4">
+                           <div class="best-value">
+                                <div class="package">
+                                    <div class="package-header">
+                                    <h5>{{offre.libelle}}</h5>
+                                </div>
+                                <div class="price">
+                                    <div class="price-container">
+                                        <h4><span class="currency"></span>{{offre.prix}} <i class="fa fa-eur"></i></h4>
+                                         <span class="period"> HT   </span>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li><h4><i class="fa fa-check"></i>{{offre.nbulletin}} Bulletin</h4></li>
+                                    
+                                </ul>                              
+                                              
+                                                   <div >                    
+                                                    
+
+                       <a class="btn btn-success btn-lg" href="{{path('jp_fiche_paie_paiement', { 'id': offre.id })}}">souscrire <i class="fa fa-check-square-o"></i> </a>
+                                                  </div>
+                                            
+                                </div>
+                             </div>
+                        </div>
+                        {% endfor %}
+                        <!-- / END FIRST PACKAGE -->
+
+                    
+                    </div>
+
+                </section>
+
+            </div>
+     
+{% endblock %}

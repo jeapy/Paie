@@ -1,0 +1,24 @@
+admin_prime_index:
+    path:     /
+    defaults: { _controller: "JPAdminBundle:PrimeSalary:index" }
+    methods:  GET
+
+admin_prime_show:
+    path:     /{id}/show
+    defaults: { _controller: "JPAdminBundle:PrimeSalary:show" }
+    methods:  GET
+
+admin_prime_new:
+    path:     /new
+    defaults: { _controller: "JPAdminBundle:PrimeSalary:new" }
+    methods:  [GET, POST]
+
+admin_prime_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "JPAdminBundle:PrimeSalary:edit" }
+    methods:  [GET, POST]
+
+admin_prime_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "JPAdminBundle:PrimeSalary:delete" }
+    methods:  DELETE

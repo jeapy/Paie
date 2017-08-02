@@ -1,0 +1,52 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | Paiement{% endblock %}
+
+{% block body %}
+
+ 
+     <div class=" col-md-12 boxoffre">
+          <section>
+                    <!-- /.row -->
+                    <div class="row packages">
+
+
+
+                         <div class="col-md-4 col-md-offset-4">
+                           <div class="best-value">
+                                <div class="package">
+                                    <div class="package-header">
+                                    <h5>Souscription à l'offre {{of.libelle}}</h5>
+                                </div>
+                              
+                                        <h4><span class="currency">Montant : </span>{{of.prix}} <i class="fa fa-eur"></i></h4>
+                                        <h4><span class="currency">TVA : </span>18 % <i class="fa fa-eur"></i></h4>
+                                         <span class="period"> --------------------------------------------------------   </span>
+                                         {% set pourcent = (of.prix * 18)/100 %}
+                                         {% set Total = pourcent + of.prix %}
+                                         <h4><span class="currency">Total : </span>{{Total}} <i class="fa fa-eur"></i></h4>
+                                  
+                                <ul>
+                                    <li><h4>Ce paiement vous donne droit à {{of.nbulletin}} Bulletin</h4></li>
+                                    
+                                </ul>                              
+                                              
+                                                   <div >                    
+                          <a class="btn btn-default" href="{{path('jp_fiche_paie_offre')}}"><i class="fa fa-reply"></i> Annuler  </a>                                
+                 <a class="btn btn-success " href="{{path('jp_fiche_paie_payer', { 'id': of.id })}}">Valider <i class="fa fa-save"></i> </a>
+                                                  </div>
+                                            
+                                </div>
+                             </div>
+                        </div>
+                      
+                        <!-- / END FIRST PACKAGE -->
+
+                    
+                    </div>
+
+                </section>
+
+            </div>
+     
+{% endblock %}

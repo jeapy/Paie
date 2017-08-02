@@ -1,0 +1,59 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | ACCUEIL{% endblock %}
+
+{% block body %}
+
+<div class="col-md-12 text-center">
+  <p class="homep">Realiser votre fiche de paie ICI</p>
+  </div>
+
+
+<div class="col-md-4 col-md-offset-4">
+{% for flashMessage in app.session.flashBag.get('notice') %}
+    <div class="alert alert-success text-center">
+        <h3> {{ flashMessage }}</h3>
+    </div>
+{% endfor %}
+</div>
+
+
+<div class="row text-center btnhome">
+
+  <div class="col-md-4">
+      <a href="{{path('jp_fiche_paie_fiche')}}" > <button type="button" class="btn btn-lg btn-block btn-start">VOTRE BULLETIN DE PAIE EN 5 MINUTES </button>  </a>  </div>
+
+      <div class="col-md-4"><a href="{{path('jp_fiche_paie_offre')}}" class="deco"> <button type="button" class="btn btn-lg btn-block btn-start">NOS OFFRES</button>  </a></div>
+
+     <div class="col-md-4"> <a href="{{path('fos_user_registration_register')}}" class="deco"> <button type="button" class="btn btn-lg btn-block btn-start">CREER UN COMPTE
+     </button>  </a></div>
+
+  </div>
+
+
+  <div class="col-md-offset-2 col-md-4">
+            <div class="sidebar content-box" style="display: block;">
+                           
+                 <h2>PRESENTATION </h2>
+                 <hr>
+                       <h4>  EASYPAY est une plateforme de réalisation de fiche de paie.<br>
+                       Elle a été élaborée avec l'expertise d'un cabinet comptable.<br >
+                       Destiné au startup,PME...Pour une meilleur gestion de leur personnel.  </h4>  
+                      </div>
+          </div>    
+         
+         <div class="col-md-4">
+            <div class="sidebar content-box" style="display: block;">
+                           
+                 <h2>PRESENTATION </h2>
+                 <hr>
+                
+                       <h4>  EASYPAY est une plateforme de réalisation de fiche de paie.<br >
+                       Elle a été élaborée avec l'expertise d'un cabinet comptable.<br >
+                       Destiné au startup,PME...Pour une meilleur gestion de leur personnel.  </h4>  
+                      </div>
+             
+          </div>
+
+        
+{% endblock %}

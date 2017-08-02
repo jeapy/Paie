@@ -1,0 +1,82 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | Document{% endblock %}
+
+{% block body %}
+
+
+          {{ include("JPFichePaieBundle:Compagny:menu.html.twig") }}
+
+
+                 <div class="col-md-8">
+              
+            <div class="content-box-large">
+              <div class="panel-heading">
+              
+               <h1>MES FACTURES</h1>
+    <hr>
+              <div class="panel-options">
+                <a href="{{path('jp_fiche_paie_facture')}}" ><i class="fa fa-refresh"></i></a>
+                
+              </div>
+            </div>
+              <div class="panel-body">
+                <table class="table">
+                      <thead>
+                        <tr>
+                             <th>Date du paiement</th>
+                             <th>Periode de validité</th>
+                             <th>Nombre de bulletin</th>
+                             <th>Prix Total</th>
+                             <th>Etat</th>
+                             <th>Action</th>
+                        </tr>
+                        </thead>
+                      <tbody>
+
+                       
+                         {% if paies is not null %}
+                                    {% for fp in paies  %}
+                                    
+                              {% set pourcent = (fp.offre.prix * 18)/100 %}
+                              {% set Total = pourcent + fp.offre.prix %}
+                       
+                          <tr>
+
+                            <td> {{fp.datepaiement |date("F jS \\a\\t g:ia")}}</td>
+
+                            <td> du   <b> {{fp.offredu |date("d/m/Y")}}</b><br/>
+                              au <b><b>{{fp.offreau |date("d/m/Y")}} </b></td>
+                            
+                            <td>  <b> {{fp.offre.nbulletin}}</b></td>
+                            
+                              
+                            <td>   <b> {{Total}}</b></td>
+                            
+                                {% if  "now"|date('Ymd')  >  fp.offreau|date('Ymd')  %}
+                            <td> <span class="label label-danger">Inactif</span></td>
+                                {% else %}
+                            <td>  <span class="label label-success">Actif </span></td>
+                                  {% endif %}
+
+                             <td> <a class="btn btn-primary btn-sm" href="{{path('jp_fiche_paie_imprimefacture', { 'id': fp.id })}}">Telecharger<i class="fa fa-download"></i> </a></td>
+
+                          
+                              
+                         {% endfor %}
+          
+         
+                           
+                                 
+                     {% else %}
+        <h3 class="c"> Aucun bulletin en cours.<h3> 
+       {% endif %}
+                      </tbody>
+                    </table>
+              </div>
+            </div>
+
+                              </div>
+       
+
+{% endblock %}

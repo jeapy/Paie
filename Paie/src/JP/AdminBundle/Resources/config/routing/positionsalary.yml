@@ -1,0 +1,24 @@
+admin_position_index:
+    path:     /
+    defaults: { _controller: "JPAdminBundle:PositionSalary:index" }
+    methods:  GET
+
+admin_position_show:
+    path:     /{id}/show
+    defaults: { _controller: "JPAdminBundle:PositionSalary:show" }
+    methods:  GET
+
+admin_position_new:
+    path:     /new
+    defaults: { _controller: "JPAdminBundle:PositionSalary:new" }
+    methods:  [GET, POST]
+
+admin_position_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "JPAdminBundle:PositionSalary:edit" }
+    methods:  [GET, POST]
+
+admin_position_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "JPAdminBundle:PositionSalary:delete" }
+    methods:  DELETE

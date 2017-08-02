@@ -1,0 +1,1897 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}JP FichePaie{% endblock %}</title>
+ 
+
+   <link rel="stylesheet" href="{{absolute_url( asset('bundles/jpfichepaie/css/bootstrap.min.css')) }}" type="text/css" />
+   <link rel="stylesheet" href="{{absolute_url( asset('bundles/jpfichepaie/css/bootstrap-theme.min.css')) }}" type="text/css" />
+   <link rel="stylesheet" href="{{ absolute_url(asset('bundles/jpfichepaie/css/styles.css') )}}" type="text/css" />
+    
+ 
+    
+  </head>
+
+<body style="background-color:#FFF">
+  <div class="page-cont" >
+       <div class="row">
+
+          
+
+         
+
+      
+ <div class="col-md-12">
+	    
+	   
+
+            <div>
+
+              {% if fiche.infouser.dateEnt |date('Y/m/d') >  '01-01-'~ ('now'|date('Y')) %}
+                      {% set NowDate = '01-01-'~ ('now'|date('Y')) %}
+                    {% else %}
+                      {% set NowDate = fiche.infouser.dateEnt |date('Y/m/d') %}
+                 {% endif %}
+                  <!-- nombre de jour travaillé dans le mois  -->
+              {% set difference = date(fiche.datedu|date('Y/m/d')).diff(date(fiche.dateau|date('Y/m/d'))) %}
+              {% set leftDays = difference.days +1  %}
+              {% if leftDays < 30 %}
+                {% set plafond = ( plafond * (leftDays/30) ) |round  %}
+              {% endif %}
+
+               <!-- duree dans l'entreprise  -->
+               {% set diff = date(NowDate|date('Y/m/d')).diff(date(fiche.datepaie|date('Y/m/d'))) %}
+              {% set Months =(((diff.days + 1)/30 ) -1)  |round(0, 'floor') %}
+              
+               
+              <div class="panel-body">
+                
+                    <table class="tbl table-bordered">
+
+<tr>
+<td colspan= "8"  align="center">
+
+</td>
+
+<td colspan= "6"  class="wells"><b>BULLETIN DE<br> SALAIRE</b></td>
+</tr>
+
+
+<tr>
+    <td colspan= "8" width= "60%" align="center" rowspan="2">
+    <p class="italic"><b><span id="nom_societe">
+          {% if fiche.infouser is not null %}
+           {{fiche.infouser.compagny.name}}
+          {% endif %}
+                    </span></b></p>
+
+    <p class="italic"><b><span id="adresse_societe">
+         {% if fiche.infouser is not null %}
+            {{fiche.infouser.compagny.address}}
+          {% endif %}
+     </span></b></p>
+    <p><b>SIRET :</b><span class="italic" id="num_siret">
+        {% if fiche.infouser is not null %}
+          {{fiche.infouser.compagny.siret}}
+          {% endif %}
+      </span>  
+        <b>NAF :</b><span class="italic" id="code_naf">
+          {% if fiche.infouser is not null %}
+         {{fiche.infouser.compagny.naf}}
+          {% endif %}
+        </span></p>
+    <b>URSSAF-N°</b> <span class="italic" id="urssaf_regional">
+ {% if fiche.infouser is not null %}
+          {{fiche.infouser.compagny.urssaf}}
+          {% endif %}
+   </span><br>
+ </td>
+    <td colspan= "6" width= "40%" align= "center" class="active"><b>PERIODE  
+      DU :<span id="du">{{fiche.datedu|date('d/m/Y')}}</span> AU :<span id="au">{{fiche.dateau|date('d/m/Y')}}</span><br/></b>
+    </td>
+  </tr>
+  <tr>
+    <td colspan= "6" width= "40%" align= "center"><p><b>Matricule :</b><span class="italic" id="matricule">
+        {% if fiche.infouser is not null %}
+          {{fiche.infouser.matricule}}
+          {% endif %}
+     </span><b>N° Sécurité sociale:</b><span class="italic" id="num_sec_social">
+     {% if fiche.infouser is not null %}
+         {{fiche.infouser.numSecur}}
+          {% endif %}
+     </span></b></p>
+ <p><b>Date ancienneté :</b><span class="italic" id="date_ancien">
+  {% if fiche.infouser is not null %}
+         {{fiche.infouser.dateEnt |date('d/m/Y')}}
+          {% endif %}
+ </span></p></td>
+   
+  </tr>
+
+
+
+<tr>
+<td class="active" colspan="3" width= "20%"  align= "center"> <b>Emploi</b>
+   </td> 
+ <td class="active" colspan="3" width= "20%"  align= "center"> <b>Position</b>
+   </td>
+   <td class="active" colspan="3" width= "20%"  align= "center"> <b>Statut</b>
+   </td>
+   <td  colspan="7" width= "40%" rowspan="4" align= "center"  >
+   <span class="italic" id="nom_employe"><b>
+    {% if fiche.infouser is not null %}
+        {{fiche.infouser.nomPrenom}}
+          {% endif %}
+    </b></span><br />
+   <b><span class="italic" id="adresse_employe">
+  {% if fiche.infouser is not null %}
+        {{fiche.infouser.adresse}}
+          {% endif %}
+  </span></b>
+   </td>
+</tr>
+
+<tr>
+<td  colspan="3" width= "20%"  align= "center"> 
+   <span class="italic" id="emploi_1">
+ {% if fiche.infouser is not null %}
+        {{fiche.infouser.emploi.libelle}}
+          {% endif %}
+    </span>
+   </td> 
+ <td  colspan="3" width= "20%" align= "center"> 
+   <span class="italic" id="position_ech_coef_1">
+    {% if fiche.infouser is not null %}
+        {{fiche.infouser.position.libelle}}
+          {% endif %}
+    </span>
+   </td>
+   <td  colspan="3" width= "20%" align= "center"> 
+   <span class="italic" id="statut_1">
+   {% if fiche.infouser is not null %}
+        {{fiche.infouser.status.libelle}}
+          {% endif %}</span>
+   </td>
+</tr>
+<tr>
+<td class="active" colspan="9" width= "60%" align= "center"> 
+   <b>CONVENTION COLLECTIVE</b>
+   </td>
+</tr>
+<tr>
+<td  colspan="9" width= "60%" align="center"> 
+   <span class="italic" id="convention_collect">
+{% if fiche.infouser is not null %}
+        {{fiche.infouser.compagny.convention.libelle}}
+          {% endif %}
+    </span>
+   </td>
+</tr>
+
+
+  </table>
+
+  <table class="tables">
+
+<tr >
+  <td  class="bord" width= "35%"  rowspan="2" colspan= "4"  align= "center"><b>Désignation</b></td>
+  <td class="bord" width= "10%"   rowspan="2" colspan= "2"  align= "center"><b>Base</b></td>
+  <td class="bord" width= "10%"   rowspan="2" colspan= "2"  align= "center"><b>Taux</b></td>
+  <td class="bord"  width= "10%"   rowspan="2" colspan= "2" align= "center"><b>retenue</b></td>
+  <td class="bord" width= "10%"   rowspan="2" colspan= "2"  align= "center"><b>Gain</b></td>
+  <td class="bord" width="25%"    colspan= "2" align="center"><b>Cotisations patronales</b></td>
+</tr>
+
+<tr>
+  <td class="bord" width="12%" align="center">Taux</td>
+  <td class="bord" width="13%" align="center">Montant</td>
+</tr>
+
+
+<!-- start verified granted role --> {% if is_granted("ROLE_ADMIN") %}   
+
+{% if fiche.infouser.status.id == 3 %} 
+                               
+  <!--#
+      #
+      ************************************ STATUS CADRE********************************************
+                                                                                                      #
+                                                                                                      #-->
+
+      <!-- Ligne du tableau //Entete-->
+
+  {% if fiche.salairebrut!= 0 %}  
+   {% set taux = fiche.salairebrut/fiche.nombreheuretravail %}  
+<tr  >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title1}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{fiche.nombreheuretravail}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">{{taux | number_format(2, '.', ',')}}  </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.salairebrut}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+{% if fiche.heuressup25 != 0 %} 
+{% set tauxhs25 = taux * 1.25 %} 
+{% set hs25 = tauxhs25 * fiche.heuressup25 %} 
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title2}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup25}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">{{tauxhs25 | number_format(2, '.', ',')}} </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{hs25 | number_format(2, '.', ',')}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else %}
+{% set hs25 =0 %} 
+{% endif %}
+
+{% if fiche.heuressup50 != 0 %} 
+{% set tauxhs50 = taux * 1.5 %} 
+{% set hs50 = tauxhs50 * fiche.heuressup50 %} 
+<tr > 
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{title59}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup50}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> {{tauxhs50 | number_format(2, '.', ',')}}</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{hs50 | number_format(2, '.', ',')}}  </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else %}
+{% set hs50 =0 %} 
+{% endif %}
+
+{% if fiche.heuressup10 != 0 %}
+{% set tauxhs10 = taux * 1.1 %} 
+{% set hs10 = tauxhs10 * fiche.heuressup10 %}   
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{title60}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup10}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">{{tauxhs10 | number_format(2, '.', ',')}} </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{hs10 | number_format(2, '.', ',')}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else %}
+{% set hs10 =0 %}   
+{% endif %}
+
+  {% if fiche.congepaye!= 0 %} 
+  {% set tauxcp = (fiche.salairebrut*fiche.heuressup25)/26 %}
+  {% set cp = fiche.congepaye*tauxcp %}
+ 
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{title40}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{ fiche.congepaye }} </td>
+    <td  width= "10%"  colspan= "2" align= "center">{{ tauxcp | number_format(2, '.', ',')}} </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{ cp | number_format(2, '.', ',')}} </td>
+        <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+<tr >
+{% else %}
+{% set cp =0 %} 
+{% endif %}
+
+{% if fiche.typeprime is not null %}       
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{fiche.typeprime.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{fiche.valeurprime}}</td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% endif %}
+
+{% if fiche.typeavantage is not null %}    
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{fiche.typeavantage.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.valeuravantage}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+ {% endif %}
+
+ {% set tot =fiche.salairebrut + hs10 + hs50 + hs25 + fiche.valeurprime + fiche.valeuravantage + cp  %}
+
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title3}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"><b>{{tot | number_format(2, '.', ',')}}</b> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+                    
+                     <!-- Ligne du tableau //Corps-->
+{% set ret4 = (tot* 0.75)/100  %}
+{% set cp4 = (tot* 12.82)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title4}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 0.75</td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret4 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">12.84 </td>
+    <td   width="13%"   align="center">{{cp4| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp5 = (tot* 1.85)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title5}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.85 </td>
+    <td   width="13%"   align="center">{{cp5| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% if tot > plafond  %}
+{% set ret6 = (plafond * 6.9 )/100 %}
+{% set cp6 = (plafond * 8.55 )/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">6.9 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">8.55 </td>
+    <td   width="13%"   align="center">{{cp6| number_format(2, '.', ',')}} </td>
+</tr>
+{% else  %}
+{% set ret6 = (tot * 6.9)/100  %}
+{% set cp6 = (tot * 8.55)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">6.9 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret6 | number_format(2, '.', ',')}}  </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">8.55 </td>
+    <td   width="13%"   align="center">{{cp6| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+{% set cp7 = (tot * 3.45)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title7}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">3.45 </td>
+    <td   width="13%"   align="center">{{cp7| number_format(2, '.', ',')}} </td>
+</tr>
+{% if tot > (3.5 * smic)  %}
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title8}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+{% set cp9 = (tot * fiche.tauxaccident)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title9}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">{{fiche.tauxaccident}} </td>
+    <td   width="13%"   align="center">{{cp9| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp10 = (tot * 0.3)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title10}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.3 </td>
+    <td   width="13%"   align="center">{{cp10| number_format(2, '.', ',')}} </td>
+</tr>
+{% if tot > plafond  %}
+{% set cp11 = (plafond * 0.1)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title11}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{plafond}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.1</td>
+    <td   width="13%"   align="center"> {{cp11| number_format(2, '.', ',')}}</td>
+</tr>
+{% else  %}
+{% set cp11 = (tot * 0.1)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title11}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{tot | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.1 </td>
+    <td   width="13%"   align="center">{{cp11| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title12}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% set ret13 = (tot * 2.4)/100  %}
+{% set cp13 = (tot * 4)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title13}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 2.4</td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret13 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">4 </td>
+    <td   width="13%"   align="center">{{cp13| number_format(2, '.', ',') }}</td>
+</tr>
+
+{% set cp14 = (tot * 0.25)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title14}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.25</td>
+    <td   width="13%"   align="center">{{cp14| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% if tot > plafond  %}
+{% set valeursup = tot - plafond  %}
+{% set ret15 = (plafond *5)/100  %}
+{% set cp15 = (plafond *5)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title15}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{plafond}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">5 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret15}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">5 </td>
+    <td   width="13%"   align="center">{{cp15| number_format(2, '.', ',')}} </td>
+</tr>
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title16}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valeursup | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else  %}
+{% set ret15 = (tot * 5)/100  %}
+{% set cp15 = (tot * 5)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title15}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{tot | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> 5</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret15 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">5 </td>
+    <td   width="13%"   align="center">{{cp15| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+
+
+
+{% if   3459 > plafond > tot   %}
+{% set gmp =   3459 - plafond   %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title17}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{ gmp | number_format(2, '.', ',') }} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% elseif     3459 > tot > plafond   %}
+{% set gmp =   tot - plafond   %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title17}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{ gmp | number_format(2, '.', ',') }} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% elseif tot  >3459  >  plafond   %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title17}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">0 </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+
+{% set ret18 = (tot * 0.13)/100  %}
+{% set cp18 = (tot * 0.22)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title18}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 0.13</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret18 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.22 </td>
+    <td   width="13%"   align="center">{{cp18| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% if tot > plafond  %}
+{% set ret19 = (plafond * 0.024)/100  %}
+{% set cp19 = (plafond * 0.036)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title19}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.024 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret19 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.036 </td>
+    <td   width="13%"   align="center">{{cp19| number_format(2, '.', ',')}} </td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title20}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valeursup | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else  %}
+{% set ret19 = (tot * 0.024)/100  %}
+{% set cp19 = (tot * 0.036)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title19}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.024 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret19 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.036</td>
+    <td   width="13%"   align="center">{{ cp19| number_format(2, '.', ',')}}</td>
+</tr>
+{% endif %}
+
+
+{% if tot > plafond  %}
+{% set ret21 = (plafond * 0.8)/100  %}
+{% set cp21 = (plafond * 1.2)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title21}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.8 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret21}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.2 </td>
+    <td   width="13%"   align="center">{{cp21| number_format(2, '.', ',') }}</td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title22}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valeursup | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else  %}
+{% set ret21 = (tot * 0.8)/100  %}
+{% set cp21 = (tot * 1.2)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title21}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.8 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret21 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 1.2</td>
+    <td   width="13%"   align="center">{{cp21| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+{% set ret23 = (tot * 0.527)/100  %}
+{% set cp23 = (tot * 0.644)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title23}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.527 </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret23 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.644 </td>
+    <td   width="13%"   align="center">{{cp23| number_format(2, '.', ',')}} </td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title24}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+
+
+{% if tot > plafond  %}
+{% set cp25 = (plafond * 1.5)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title25}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.5 </td>
+    <td   width="13%"   align="center">{{cp25| number_format(2, '.', ',') }}</td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title26}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valeursup | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else  %}
+{% set cp25 = (tot * 1.5)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title25}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.5 </td>
+    <td   width="13%"   align="center">{{cp25| number_format(2, '.', ',') }}</td>
+</tr>
+{% endif %}
+
+
+{% if fiche.couverture == 1 %}
+    {% set valcouv = (fiche.complement * fiche.chargemployeur)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title27}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valcouv | number_format(2, '.', ',')}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+
+{% if fiche.infouser is not null %}
+            {% if fiche.infouser.compagny.effectif > 11 %}
+         
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title28}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+           {% endif %}
+ {% endif %}
+
+{% set cp29 = (tot * 0.68)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title29}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.68 </td>
+    <td   width="13%"   align="center">{{cp29| number_format(2, '.', ',') }}</td>
+</tr>
+
+{% set cp30 = (tot * 0.55)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title30}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.55 </td>
+    <td   width="13%"   align="center">{{ cp30| number_format(2, '.', ',')}}</td>
+</tr>
+{% set cp31 = (tot * 0.016)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title31}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.016 </td>
+    <td   width="13%"   align="center">{{cp31| number_format(2, '.', ',')}} </td>
+</tr>
+{% set cp32 = fiche.heuressup25 * (-1.5) %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title32}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup25 }} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.5 </td>
+    <td   width="13%"   align="center"> {{cp32| number_format(2, '.', ',')}}</td>
+</tr>
+{% set cotis = tot * 0.9825 %}
+{% set ret33 = (cotis * 5.1)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title33}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">5.1 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret33 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title34}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+
+{% set totalcotis = ret4 + ret6 + ret13 + ret15 + ret18 + ret19 + ret21 + ret23 + ret33   %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title35}} </b></td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"><b>{{totalcotis | number_format(2, '.', ',')}} </b></td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set ret36 = (cotis * 2.4)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title36}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> 2.4</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret36 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set ret37 = (cotis * 0.5)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title37}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">0.5 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ ret37 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set cotispatronal = cp4 + cp5 + cp6 + cp7  + cp9 + cp10 + cp11 + cp13 + cp14 + cp15 + cp18 + cp19 + cp21 + cp23 + cp25 + cp29 + cp30 + cp31 + cp32  %}
+{% set totalautrecotis = ret36 + ret37  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"><b> {{title38}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"><b>{{totalautrecotis | number_format(2, '.', ',')}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> <b>{{cotispatronal | number_format(2, '.', ',')}}</b></td>
+</tr>
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title51}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% if fiche.typeavantage is not null %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{fiche.typeavantage.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{fiche.valeuravantage}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title74}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+<tr  >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title75}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set totalnetimpossable = tot - totalcotis  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title39}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"><b>{{totalnetimpossable | number_format(2, '.', ',')}}</b> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+</table>
+
+
+
+
+{%elseif fiche.infouser.status.id == 1 %}
+  <!--#
+      #
+      ************************************ STATUS STAGIAIRE********************************************
+                                                                                                      #
+                                                                                                      #-->
+
+ {% if fiche.salairebrut!= 0 %}  
+   {% set taux = fiche.salairebrut/fiche.nombreheuretravail %}  
+<tr  >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title44}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{fiche.nombreheuretravail}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">{{taux | number_format(2, '.', ',')}}  </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.salairebrut}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+{% if fiche.typeprime is not null %}       
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{fiche.typeprime.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{fiche.valeurprime}}</td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% endif %}
+
+{% if fiche.typeavantage is not null %}    
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{fiche.typeavantage.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.valeuravantage}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+ {% endif %}
+
+ {% set tot =fiche.salairebrut  + fiche.valeurprime + fiche.valeuravantage  %}
+
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title3}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"><b>{{tot | number_format(2, '.', ',')}}</b> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+   <!-- Ligne du tableau //Corps-->
+{% set ret4 = (tot* 0.75)/100  %}
+{% set cp4 = (tot* 12.82)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title4}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 0.75</td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret4 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">12.84 </td>
+    <td   width="13%"   align="center">{{cp4| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp5 = (tot* 1.85)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title5}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.85 </td>
+    <td   width="13%"   align="center">{{cp5| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% if tot > plafond  %}
+{% set ret6 = (plafond * 6.9 )/100 %}
+{% set cp6 = (plafond * 8.55 )/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">6.9 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">8.55 </td>
+    <td   width="13%"   align="center">{{cp6| number_format(2, '.', ',')}} </td>
+</tr>
+{% else  %}
+{% set ret6 = (tot * 6.9)/100  %}
+{% set cp6 = (tot * 8.55)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">6.9 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret6 | number_format(2, '.', ',')}}  </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">8.55 </td>
+    <td   width="13%"   align="center">{{cp6| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+{% set cp7 = (tot * 3.45)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title7}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">3.45 </td>
+    <td   width="13%"   align="center">{{cp7| number_format(2, '.', ',')}} </td>
+</tr>
+{% if tot > (3.5 * smic)  %}
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title8}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+{% set cp9 = (tot * fiche.tauxaccident)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title9}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">{{fiche.tauxaccident}} </td>
+    <td   width="13%"   align="center">{{cp9| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp10 = (tot * 0.3)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title10}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.3 </td>
+    <td   width="13%"   align="center">{{cp10| number_format(2, '.', ',')}} </td>
+</tr>
+{% if tot > plafond  %}
+{% set cp11 = (plafond * 0.1)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title11}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{plafond}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.1</td>
+    <td   width="13%"   align="center"> {{cp11| number_format(2, '.', ',')}}</td>
+</tr>
+{% else  %}
+{% set cp11 = (tot * 0.1)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title11}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{tot | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.1 </td>
+    <td   width="13%"   align="center">{{cp11| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title12}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% set ret13 = (tot * 2.4)/100  %}
+{% set cp13 = (tot * 4)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title13}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 2.4</td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret13 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">4 </td>
+    <td   width="13%"   align="center">{{cp13| number_format(2, '.', ',') }}</td>
+</tr>
+
+{% set cp14 = (tot * 0.25)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title14}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.25</td>
+    <td   width="13%"   align="center">{{cp14| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp29 = (tot * 0.68)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title29}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.68 </td>
+    <td   width="13%"   align="center">{{cp29| number_format(2, '.', ',') }}</td>
+</tr>
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title50}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+
+{% set cp30 = (tot * 0.55)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title30}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.55 </td>
+    <td   width="13%"   align="center">{{ cp30| number_format(2, '.', ',')}}</td>
+</tr>
+{% set cp31 = (tot * 0.016)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title31}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.016 </td>
+    <td   width="13%"   align="center">{{cp31| number_format(2, '.', ',')}} </td>
+</tr>
+{% set cotis = tot * 0.9825 %}
+{% set ret33 = (cotis * 5.1)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title33}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">5.1 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret33 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% set totalcotis = ret4 + ret6 + ret13  +  ret33  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title35}} </b></td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"><b>{{totalcotis | number_format(2, '.', ',')}} </b></td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set ret36 = (cotis * 2.4)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title36}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> 2.4</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret36 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set ret37 = (cotis * 0.5)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title37}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">0.5 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ ret37 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+
+    {% set cotispatronal = cp4 + cp5 + cp6 + cp7  + cp9 + cp10 + cp11 + cp13 + cp14 + cp29 + cp30 + cp31   %}
+{% set totalautrecotis = ret36 + ret37  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"><b> {{title38}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"><b>{{totalautrecotis | number_format(2, '.', ',')}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> <b>{{cotispatronal | number_format(2, '.', ',')}}</b></td>
+</tr>
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title51}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% if fiche.typeavantage is not null %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{fiche.typeavantage.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{fiche.valeuravantage}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title74}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+<tr  >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title75}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set totalnetimpossable = tot - totalcotis  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title39}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"><b>{{totalnetimpossable | number_format(2, '.', ',')}}</b> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+</table>
+
+
+
+{%else %}
+<!--#
+    #
+    ************************************ TOUT LES AUTRES STATUS********************************************
+                                                                                                          #
+                                                                                                          #-->
+
+  {% if fiche.salairebrut!= 0 %}  
+   {% set taux = fiche.salairebrut/fiche.nombreheuretravail %}  
+<tr  >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title1}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{fiche.nombreheuretravail}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">{{taux | number_format(2, '.', ',')}}  </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.salairebrut}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+{% if fiche.heuressup25 != 0 %} 
+{% set tauxhs25 = taux * 1.25 %} 
+{% set hs25 = tauxhs25 * fiche.heuressup25 %} 
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title2}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup25}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">{{tauxhs25 | number_format(2, '.', ',')}} </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{hs25 | number_format(2, '.', ',')}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else %}
+{% set hs25 =0 %} 
+{% endif %}
+
+{% if fiche.heuressup50 != 0 %} 
+{% set tauxhs50 = taux * 1.5 %} 
+{% set hs50 = tauxhs50 * fiche.heuressup50 %} 
+<tr > 
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{title59}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup50}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> {{tauxhs50 | number_format(2, '.', ',')}}</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{hs50 | number_format(2, '.', ',')}}  </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else %}
+{% set hs50 =0 %} 
+{% endif %}
+
+{% if fiche.heuressup10 != 0 %}
+{% set tauxhs10 = taux * 1.1 %} 
+{% set hs10 = tauxhs10 * fiche.heuressup10 %}   
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{title60}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup10}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">{{tauxhs10 | number_format(2, '.', ',')}} </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{hs10 | number_format(2, '.', ',')}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else %}
+{% set hs10 =0 %}   
+{% endif %}
+
+  {% if fiche.congepaye!= 0 %} 
+  {% set tauxcp = (fiche.salairebrut*fiche.heuressup25)/26 %}
+  {% set cp = fiche.congepaye*tauxcp %}
+ 
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{title40}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{ fiche.congepaye }} </td>
+    <td  width= "10%"  colspan= "2" align= "center">{{ tauxcp | number_format(2, '.', ',')}} </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{ cp | number_format(2, '.', ',')}} </td>
+        <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+<tr >
+{% else %}
+{% set cp =0 %} 
+{% endif %}
+
+{% if fiche.typeprime is not null %}       
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{fiche.typeprime.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{fiche.valeurprime}}</td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% endif %}
+
+{% if fiche.typeavantage is not null %}    
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left">{{fiche.typeavantage.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.valeuravantage}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+ {% endif %}
+
+ {% set tot =fiche.salairebrut + hs10 + hs50 + hs25 + fiche.valeurprime + fiche.valeuravantage + cp  %}
+
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title3}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"><b>{{tot | number_format(2, '.', ',')}}</b> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+                    
+                     <!-- Ligne du tableau //Corps-->
+{% set ret4 = (tot* 0.75)/100  %}
+{% set cp4 = (tot* 12.82)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title4}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 0.75</td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret4 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">12.84 </td>
+    <td   width="13%"   align="center">{{cp4| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp5 = (tot* 1.85)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title5}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.85 </td>
+    <td   width="13%"   align="center">{{cp5| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% if tot > plafond  %}
+{% set ret6 = (plafond * 6.9 )/100 %}
+{% set cp6 = (plafond * 8.55 )/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">6.9 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">8.55 </td>
+    <td   width="13%"   align="center">{{cp6| number_format(2, '.', ',')}} </td>
+</tr>
+{% else  %}
+{% set ret6 = (tot * 6.9)/100  %}
+{% set cp6 = (tot * 8.55)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title6}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">6.9 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret6 | number_format(2, '.', ',')}}  </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">8.55 </td>
+    <td   width="13%"   align="center">{{cp6| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+{% set cp7 = (tot * 3.45)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title7}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">3.45 </td>
+    <td   width="13%"   align="center">{{cp7| number_format(2, '.', ',')}} </td>
+</tr>
+{% if tot > (3.5 * smic)  %}
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title8}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+{% set cp9 = (tot * fiche.tauxaccident)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title9}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">{{fiche.tauxaccident}} </td>
+    <td   width="13%"   align="center">{{cp9| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% set cp10 = (tot * 0.3)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title10}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.3 </td>
+    <td   width="13%"   align="center">{{cp10| number_format(2, '.', ',')}} </td>
+</tr>
+{% if tot > plafond  %}
+{% set cp11 = (plafond * 0.1)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title11}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{plafond}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.1</td>
+    <td   width="13%"   align="center"> {{cp11| number_format(2, '.', ',')}}</td>
+</tr>
+{% else  %}
+{% set cp11 = (tot * 0.1)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title11}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{tot | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.1 </td>
+    <td   width="13%"   align="center">{{cp11| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title12}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% set ret13 = (tot * 2.4)/100  %}
+{% set cp13 = (tot * 4)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title13}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> 2.4</td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret13 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">4 </td>
+    <td   width="13%"   align="center">{{cp13| number_format(2, '.', ',') }}</td>
+</tr>
+
+{% set cp14 = (tot * 0.25)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title14}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 0.25</td>
+    <td   width="13%"   align="center">{{cp14| number_format(2, '.', ',')}} </td>
+</tr>
+
+{% if tot > plafond  %}
+{% set valeursup = tot - plafond  %}
+{% set ret15 = (plafond *5)/100  %}
+{% set cp15 = (plafond *5)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title15}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{plafond}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">5 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret15}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">5 </td>
+    <td   width="13%"   align="center">{{cp15| number_format(2, '.', ',')}} </td>
+</tr>
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title16}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valeursup | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else  %}
+{% set ret15 = (tot * 5)/100  %}
+{% set cp15 = (tot * 5)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title15}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{tot | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> 5</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret15 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">5 </td>
+    <td   width="13%"   align="center">{{cp15| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+
+
+
+
+{% if tot > plafond  %}
+{% set ret21 = (plafond * 0.8)/100  %}
+{% set cp21 = (plafond * 1.2)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title21}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{plafond}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.8 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret21}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.2 </td>
+    <td   width="13%"   align="center">{{cp21| number_format(2, '.', ',') }}</td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title22}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valeursup | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% else  %}
+{% set ret21 = (tot * 0.8)/100  %}
+{% set cp21 = (tot * 1.2)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title21}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.8 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret21 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> 1.2</td>
+    <td   width="13%"   align="center">{{cp21| number_format(2, '.', ',')}} </td>
+</tr>
+{% endif %}
+{% set ret23 = (tot * 0.527)/100  %}
+{% set cp23 = (tot * 0.644)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title23}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center">0.527 </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret23 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.644 </td>
+    <td   width="13%"   align="center">{{cp23| number_format(2, '.', ',')}} </td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title24}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+
+
+{% if fiche.couverture == 1 %}
+    {% set valcouv = (fiche.complement * fiche.chargemployeur)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title27}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{valcouv | number_format(2, '.', ',')}} </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+
+
+{% if fiche.infouser is not null %}
+            {% if fiche.infouser.compagny.effectif > 11 %}
+         
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title28}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+           {% endif %}
+ {% endif %}
+
+{% set cp29 = (tot * 0.68)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title29}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.68 </td>
+    <td   width="13%"   align="center">{{cp29| number_format(2, '.', ',') }}</td>
+</tr>
+
+{% set cp30 = (tot * 0.55)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title30}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.55 </td>
+    <td   width="13%"   align="center">{{ cp30| number_format(2, '.', ',')}}</td>
+</tr>
+{% set cp31 = (tot * 0.016)/100  %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title31}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{tot | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">0.016 </td>
+    <td   width="13%"   align="center">{{cp31| number_format(2, '.', ',')}} </td>
+</tr>
+{% set cp32 = fiche.heuressup25 * (-1.5) %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title32}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center">{{fiche.heuressup25 }} </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center">1.5 </td>
+    <td   width="13%"   align="center"> {{cp32| number_format(2, '.', ',')}}</td>
+</tr>
+{% set cotis = tot * 0.9825 %}
+{% set ret33 = (cotis * 5.1)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title33}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">5.1 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ret33 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title34}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+
+{% set totalcotis = ret4 + ret6 + ret13 + ret15 + ret21 + ret23 + ret33  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title35}} </b></td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"><b>{{totalcotis | number_format(2, '.', ',')}} </b></td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set ret36 = (cotis * 2.4)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title36}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center"> 2.4</td>
+    <td   width= "10%"  colspan= "2"  align= "center"> {{ret36 | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set ret37 = (cotis * 0.5)/100 %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title37}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> {{cotis | number_format(2, '.', ',')}}</td>
+    <td  width= "10%"  colspan= "2" align= "center">0.5 </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{ ret37 | number_format(2, '.', ',')}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set cotispatronal = cp4 + cp5 + cp6 + cp7  + cp9 + cp10 + cp11 + cp13 + cp14 + cp15 + cp21 + cp23 + cp29 + cp30 + cp31 + cp32   %}
+{% set totalautrecotis = ret36 + ret37  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"><b> {{title38}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"><b>{{totalautrecotis | number_format(2, '.', ',')}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> <b>{{cotispatronal | number_format(2, '.', ',')}}</b></td>
+</tr>
+
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title51}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+{% if fiche.typeavantage is not null %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{fiche.typeavantage.libelle}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center">{{fiche.valeuravantage}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% endif %}
+<tr >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title74}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+<tr  >
+    <td  width= "35%"  colspan= "4"   align= "left"> {{title75}} </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+{% set totalnetimpossable = tot - totalcotis  %}
+<tr class="colortable" >
+    <td  width= "35%"  colspan= "4"   align= "right"> <b>{{title39}}</b> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"> </td>
+    <td  width= "10%"  colspan= "2" align= "center"> </td>
+    <td   width= "10%"  colspan= "2"  align= "center"> </td>
+    <td  width= "10%"   colspan= "2"  align= "center"><b>{{totalnetimpossable | number_format(2, '.', ',')}}</b> </td>
+    <td    width="12%"   align="center"> </td>
+    <td   width="13%"   align="center"> </td>
+</tr>
+
+</table>
+{%endif%}
+
+
+<!-- not granted role Admin -->{% else %}
+       {%set tot,totalcotis,cotispatronal,totalnetimpossable = 0,0,0,0 %}
+
+<tr class="coltbl" >
+    <td  class="coltbl" width= "100%"  colspan= "14"   align= "center"> <b>
+
+      COTISATIONS SALARIALES ET PATRONALES :<br>
+    PARTIE CACHÉE AVANT L'ACHAT DU DOCUMENT
+
+  </b> </td>
+    
+</tr>
+
+</table>
+       
+<!-- end verified granted role -->{% endif %}
+<table class="tbl table-bordered">
+<tr>
+<td   colspan= "2" > </td>
+<td class="active"  colspan= "2" > Brut Imposable</td>
+<td class="active"  colspan= "2" >Base S.S </td>
+<td class="active"  colspan= "2">plafond  </td>
+<td class="active"  colspan= "2" >Cotisation Salariale </td>
+<td class="active"  colspan= "2">Cotisation patronale </td>
+<td class="active"  colspan= "2">Heures travaillés </td>
+<td class="active"  colspan= "2">Net imposable </td>
+</tr>
+
+<tr>
+<td   colspan= "2" >Mois </td>
+<td   colspan= "2" > {{tot | number_format(2, '.', ',')}}</td>
+<td   colspan= "2" ></td>
+<td   colspan= "2"> {{plafond}}</td>
+<td   colspan= "2" >{{totalcotis | number_format(2, '.', ',')}} </td>
+<td   colspan= "2">{{cotispatronal | number_format(2, '.', ',')}} </td>
+<td   colspan= "2">{{fiche.nombreheuretravail}} </td>
+<td   colspan= "2">{{totalnetimpossable | number_format(2, '.', ',')}} </td>
+</tr>
+{% set sal = tot * Months %}
+{% set plaf = plafond  * Months %}
+{% set hrw = fiche.nombreheuretravail * Months %}
+{% set tnimois =  totalnetimpossable * Months %}
+{% set tcmois =  totalcotis * Months %}
+{% set cpmois =  cotispatronal * Months %}
+<tr>
+<td   colspan= "2" >Année </td>
+<td   colspan= "2" > {{sal | number_format(2, '.', ',')}}</td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> {{plaf | round}}</td>
+<td   colspan= "2" >{{tcmois| number_format(2, '.', ',')}} </td>
+<td   colspan= "2">{{cpmois | number_format(2, '.', ',')}} </td>
+<td   colspan= "2">{{hrw}} </td>
+<td   colspan= "2">{{tnimois | number_format(2, '.', ',')}} </td>
+</tr>
+
+<tr>
+<td   colspan= "2" > </td>
+<td class="active"  colspan= "2" >Acquis N-1 </td>
+<td  class="active" colspan= "2" >Acquis N </td>
+<td class="active"  colspan= "2">Acquis mois </td>
+<td class="active"  colspan= "2" >Pris </td>
+<td class="active"  colspan= "2">Solde </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+</tr>
+{% set acquisN =  2.5 * Months %}
+{% set acquisM = 2.5 * (leftDays/30) %}
+
+
+<tr>
+<td   colspan= "2" >Congé payé </td>
+<td   colspan= "2" >{{fiche.congepaye}} </td>
+
+{% if fiche.congeacquis != 0 %}
+{% set sold = fiche.congeacquis - fiche.congepris %}
+<td   colspan= "2" >{{  fiche.congeacquis }} </td>
+{%else%}
+{% set sold = acquisN - fiche.congepris %}
+<td   colspan= "2" >{{ acquisN |number_format(2, '.', ',') }} </td>
+{% endif%}
+
+<td   colspan= "2"> {{ acquisM | number_format(2, '.', ',')}}</td>
+<td   colspan= "2" >{{ fiche.congepris}} </td>
+<td   colspan= "2">{{ sold}} </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+</tr>
+
+</table>
+
+
+  </div>
+   </div>
+
+    </div>
+   </div>
+   
+
+        </div>
+    </div>
+
+    
+   
+  <script type="text/javascript" src="{{ absolute_url(asset('bundles/jpfichepaie/js/bootstrap.min.js')) }}"></script>
+
+</body>
+</html>

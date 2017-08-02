@@ -1,0 +1,42 @@
+{% extends "JP\AdminBundle::layout.html.twig" %}
+{% block body %}
+<div class="content-box-large"> 
+                    <div class="panel-body">
+    <h1>DETAIL AVANTAGE</h1>
+     <hr>
+<div >
+        <p class="text-right">
+            <a class ="btn btn-default" href="{{ path('admin_avantage_index')  }}"> <i class="fa fa-reply"></i> Retour a la liste</a>
+        </p>
+    </div>
+
+           
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th >Id</th>
+                <td>{{ avantageSalary.id }}</td>
+            </tr>
+            <tr>
+                <th >Libelle</th>
+                <td>{{ avantageSalary.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div >
+        <p class="text-left">
+            <a class ="btn btn-primary" href="{{ path('admin_avantage_edit', { 'id': avantageSalary.id })   }}"> <i class="fa fa-edit"></i> Modifier</a>
+        </p>
+    </div>
+
+   <div >
+        <p class="text-right">
+             {{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Supprimer">
+            {{ form_end(delete_form) }}
+        </p>
+    </div>
+           
+   </div> </div>     
+{% endblock %}

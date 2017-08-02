@@ -1,0 +1,828 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | Editer fiche de paie{% endblock %}
+
+{% block body %}
+
+    <div class="col-md-4">
+
+
+       {{ form_start(edit_form, {'attr': {'class': ''}}) }}
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(edit_form) }}
+
+
+        <div class="content-box-large " id="division1">
+                
+                <div class="panel-body">
+                  <div class="form-horizontal" >             
+                 
+                   <fieldset>
+                    <legend class="c">INFORMATION SALARIE</legend>
+                 
+                 
+       <div class="form-group">
+                       {# Génération du label. #}
+           {{ form_label(edit_form.infouser.nomPrenom, "Nom Prenom", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.nomPrenom) }}    
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.nomPrenom, {'attr': {'class': '','id':'ddu'}}) }}
+
+                        
+                    </div></div>
+                     <div class="form-group">
+                       {# Génération du label. #}
+           {{ form_label(edit_form.infouser.adresse, "Adresse", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.adresse) }}    
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.adresse, {'attr': {'class': '','id':'ddu'}}) }}
+                        
+                    </div></div>
+
+
+                  
+
+                     <div class="form-group">
+                     {{ form_label(edit_form.infouser.numSecur, "Numero de seurité sociale", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.numSecur) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.numSecur, {'attr': {'class': '','id':'dau'}}) }}
+                          
+                    </div> </div>
+
+                    <div class="form-group">
+                    {{ form_label(edit_form.infouser.dateEnt, "Date d'embauche", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.dateEnt) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.dateEnt, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+
+                     <div class="form-group">
+                    {{ form_label(edit_form.infouser.matricule, "Matricule", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.matricule) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.matricule, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+
+                    <div class="form-group">
+                    {{ form_label(edit_form.infouser.status, "Status", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.status) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.status, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+
+                     <div class="form-group">
+                    {{ form_label(edit_form.infouser.emploi, "Emploi", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.emploi) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.emploi, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+
+                     <div class="form-group">
+                    {{ form_label(edit_form.infouser.position, "Position", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.position) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.position, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+                     <div class="form-group">
+                    {{ form_label(edit_form.infouser.compagny, "Entreprise", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.infouser.compagny) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.infouser.compagny, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+                   
+                  </fieldset>
+
+
+                </div>
+                </div>
+              </div>
+	         <div class="content-box-large affiche" id="division2">
+
+
+                <div class="panel-body">
+                  <div class="form-horizontal" >             
+                 
+                   <fieldset>
+                    <legend class="c">PAIEMENT</legend>
+                 
+                 
+       <div class="form-group">
+                       {# Génération du label. #}
+           {{ form_label(edit_form.modepaie, "Mode de paiement", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.modepaie) }}    
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.modepaie) }}
+
+                        
+                    </div></div>
+                     <div class="form-group">
+                       {# Génération du label. #}
+           {{ form_label(edit_form.datedu, "Du", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.datedu) }}    
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.datedu, {'attr': {'class': '','id':'ddu'}}) }}
+                        
+                    </div></div>
+
+
+                  
+
+                     <div class="form-group">
+                     {{ form_label(edit_form.dateau, "Au", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.dateau) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.dateau, {'attr': {'class': '','id':'dau'}}) }}
+                          
+                    </div> </div>
+
+                    <div class="form-group">
+                    {{ form_label(edit_form.datepaie, "Date de paie", {'label_attr': {'class': 'col-md-4 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.datepaie) }} 
+              <div class="col-md-8">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.datepaie, {'attr': {'class': ''}}) }}
+                                  
+                    </div></div>
+                   
+                  </fieldset>
+
+
+                </div>
+                </div>
+              </div>
+
+        <div class="content-box-large affiche" id="division3">
+                
+                <div class="panel-body">
+                  <div class="form-horizontal" >
+              
+                  <fieldset>
+                    <legend class="c">ELEMENTS DE PAIE</legend>
+
+                     <div class="form-group">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.salairebrut, "Salaire brut mensuel de base", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.salairebrut) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.salairebrut, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                  
+
+                     <div class="form-group">
+                      <label class="col-md-7 control-label" for="text-field">Salaire net mensuel estimé</label>
+                      <div class="col-md-offset-1 col-md-4">
+                        <input id="salaireNet" name="salaireNet" class="form-control"  type="text" >
+                      </div>
+                    </div>
+                    
+                   <div class="form-group">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.nombreheuretravail, "Nombre d'heure tavaillées", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.nombreheuretravail) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.nombreheuretravail, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                  
+                         <!--    HEURE SUPPLEMENTAIRE     -->
+                         <div class="form-group">
+                      <h5 class="c">Heure supplementaire   <i id="hrasc"class="fa fa-sort-asc dir" aria-hidden="true"></i><i id="hrdesc"class="fa fa-sort-desc dir" aria-hidden="true"></i>  
+                                </h5>                      
+                    </div>
+              
+                    
+                     <div class="form-group hr">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.heuressup10, "Heure supplémentaire à 110%", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.heuressup10) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.heuressup10, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                    
+                   <div class="form-group hr">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.heuressup25, "Heure supplémentaire à 125%", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.heuressup25) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.heuressup25, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                     <div class="form-group hr">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.heuressup50, "Heure supplémentaire à 150%", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.heuressup50) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.heuressup50, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                  
+
+                  <!--    PRIME     -->
+                  <div class="form-group">
+                      <h5 class="c">Prime <i id="prasc" class="fa fa-sort-asc dir" aria-hidden="true"></i><i id="prdesc"class="fa fa-sort-desc dir" aria-hidden="true"></i> </h5>                      
+                    </div>
+
+                    <div class="form-group pr">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.typeprime, "Prime", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.typeprime) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.typeprime, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+
+                    <div class="form-group pr">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.valeurprime, "Valeur", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.valeurprime) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.valeurprime, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                   
+                   
+                     <!--    TAUX TRANSPORT ET ACCIDENT DE TRAVAIL     -->
+                     <div class="form-group">
+                      <h5 class="c">Taux de transport et accident de travail <i id="taasc" class="fa fa-sort-asc dir" aria-hidden="true"></i><i id="tadesc"class="fa fa-sort-desc dir" aria-hidden="true"></i></i></h5>                      
+                    </div>
+
+            <div class="form-group ta">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.tauxtransport, "Taux Transport en %", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.tauxtransport) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.tauxtransport, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                      <div class="form-group ta">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.tauxaccident, "Taux Accident de travail en %", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.tauxaccident) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.tauxaccident, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                  
+                 
+                      <!--    AUTRES CHARGES     -->
+                        <div class="form-group">
+                      <h5 class="c">Autres charges <i id="acasc" class="fa fa-sort-asc dir" aria-hidden="true"></i><i id="acdesc"class="fa fa-sort-desc dir" aria-hidden="true"></i></i></h5>                      
+                    </div>
+
+                    <div class="form-group ac">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.couverture, "Le salarié est couvert?", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.couverture) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.couverture, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                   
+
+                   <div class="form-group bacb">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.complement, "Cout de la complementaire", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.complement) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.complement, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                    <div class="form-group bacb">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.chargemployeur, "Part de l'employeur en %", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.chargemployeur) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.chargemployeur, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                    
+
+                       <div class="form-group">
+                      <h5 class="c">Avantages <i id="avasc" class="fa fa-sort-asc dir" aria-hidden="true"></i><i id="avdesc"class="fa fa-sort-desc dir" aria-hidden="true"></i></i></h5>                      
+                    </div>
+                    <div class="form-group av">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.typeavantage, "Avantage", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.typeavantage) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.typeavantage, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+
+                    <div class="form-group av">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.valeuravantage, "Valeur", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.valeuravantage) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.valeuravantage, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+
+                  </fieldset>
+                </div>
+                </div>
+              </div>
+ <div class="content-box-large affiche" id="division4">
+               
+                <div class="panel-body">
+                  <div class="form-horizontal">
+              
+                  <fieldset>
+                    <legend class="c">Congés, Absences et Reprise des fiches précédentes </legend>
+
+                     <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.congepaye, "Congé payé", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.congepaye) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.congepaye, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                    <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.arretmaladie, "Arret maladie", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.arretmaladie) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.arretmaladie, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                   
+                    <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.abscongsasold, "Abscence/Congé sans Solde", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.abscongsasold) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.abscongsasold, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                <div class="form-group">
+                      <h5 class="c">Congé restants <i class="fa fa-sort-asc dir" aria-hidden="true"></i></h5>                      
+                    </div>
+
+                     <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.congeacquis, "Congé acquis", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.congeacquis) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.congeacquis, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                     
+                       <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.congepris, "Congé pris", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.congepris) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.congepris, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                    
+                    
+                    
+                    <div class="form-group">
+                      <label class="col-md-7 control-label" for="text-field">Solde</label>   
+                      <div class="col-md-offset-1 col-md-4">
+                        <input id="solde" name="solde" class="form-control"  type="text">
+                      </div>                   
+                    </div>
+
+                      <div class="form-group">
+                      <h5 class="c"> Réprises des précédentes fiche de paie <i class="fa fa-sort-asc dir" aria-hidden="true"></i></h5>                      
+                    </div>
+
+                   <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.cumulehr, "Cumule des heures", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.cumulehr) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.cumulehr, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                     <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.cumule_hrsup, "Cumule des heures supplementaires", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.cumule_hrsup) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.cumule_hrsup, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                    
+                     <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.cumulebase, "Cumule des bases", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.cumulebase) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.cumulebase, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                     
+                    <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.cumbr, "Cumule  bruts", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.cumbr) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.cumbr, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+          <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.cumuleimpaye, "cumule imposable", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.cumuleimpaye) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.cumuleimpaye, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                    
+
+                                 
+                  
+                    </fieldset>
+                
+                </div>
+                </div>
+              </div>
+ <div class="content-box-large affiche" id="division5">
+               
+                <div class="panel-body">
+                  <div class="form-horizontal">
+              
+                  <fieldset>
+                    <legend class="c">Remboursement de frais</legend>
+
+           <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.fraistransport, "Frais de transport", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.fraistransport) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.fraistransport, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+                    <div class="form-group">
+                      <h5 class="c">Tickets restaurant</h5>                      
+                    </div>
+                    <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.nbrticketresto, "Nombre", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.nbrticketresto) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.nbrticketresto, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                      <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.ticketresto, "valeur", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.ticketresto) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.ticketresto, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+
+                   
+
+                    
+                      <div class="form-group">
+                      <h5 class="c">Avantage en nature</h5>                      
+                    </div>
+
+                     
+                     <div class="form-group ">
+                       {# Génération du label. #}
+              {{ form_label(edit_form.repriseavantage, "Acompte", {'label_attr': {'class': 'col-md-7 control-label'}}) }}
+              {# Affichage des erreurs pour ce champ précis. #}
+              {{ form_errors(edit_form.repriseavantage) }}       
+              <div class="col-md-offset-1 col-md-4">
+                {# Génération de l'input. #}
+                {{ form_widget(edit_form.repriseavantage, {'attr': {'class': ''}}) }}
+                        
+                    </div></div>
+ 
+                    
+                     </fieldset>
+                
+                </div>
+                </div>
+              </div> 
+
+
+
+              <div class="content-box-large" id="buttons">
+                <div class="panel-heading">
+                     <h2  class="ok" >Votre fiche a été réalisé à 100%<br>
+                      Merci de nous faire confiance.</h2> 
+                <p>
+                      <button id="btnp8" class="btn btn-default  "><i class="fa fa-arrow-left"></i> Etape précedente</button>
+                      <button id="btns8" class="btn btn-info ">Etape Suivante <i class="fa fa-arrow-right"></i> </button>     
+
+                                    
+                </p>
+          
+
+           <div >                    
+                        {{ form_rest(edit_form) }}
+
+                     <input class="btn btn-primary nok" type="submit" value="Enregistrez et finir plus tard" />
+
+                      <input class="btn btn-success ok" type="submit" value="Enregistrer" />
+                     {{ form_end(edit_form) }} 
+                      </div> 
+                </div>
+          </div>
+
+
+               
+
+                  
+	  </div>
+	    
+  
+
+  <div class="col-md-8">
+	    
+	     <div class="content-box-large ">
+                <div class="panel-heading">
+                      <h2 class="ban">CREATION D'UNE FICHE DE PAIE</h2>   
+              </div>
+            </div>
+
+            <div class="content-box-large">
+              <div class="panel-heading">
+
+           <div class="progress">
+			  <div class="progress-bar progress-bar-success" id="progressnum" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+			    0%
+			  </div>
+			</div>          
+		 </div>
+
+
+
+              <div class="panel-body">
+                
+                    <table class="table table-bordered">
+
+<tr>
+<td colspan= "8"  align="center">
+
+</td>
+
+<td colspan= "6"  class="wells"><b>BULLETIN DE<br> SALAIRE</b></td>
+</tr>
+
+
+
+
+
+
+
+<tr>
+    <td colspan= "8"  width= "60%"  align="center" rowspan="2">
+    <p class="italic"><b><span id="nom_societe">
+          &nbsp;&nbsp;&nbsp;
+                    </span></b></p>
+
+    <p class="italic"><b><span id="adresse_societe">
+         &nbsp;&nbsp;&nbsp;
+     </span></b></p>
+    <p><b>SIRET :</b><span class="italic" id="num_siret">
+       &nbsp;&nbsp;&nbsp;
+          
+      </span>  
+        <b>NAF :</b><span class="italic" id="code_naf">
+          &nbsp;&nbsp;&nbsp;
+        </span></p>
+    <b>URSSAF-N°</b> <span class="italic" id="urssaf_regional">
+ &nbsp;&nbsp;&nbsp;
+   </span><br>
+ </td>
+    <td colspan= "6" width= "40%" align= "center" class="active"><b>PERIODE  
+      DU :<span id="du">&nbsp;&nbsp;&nbsp;</span> AU :<span id="au">&nbsp;&nbsp;&nbsp;</span><br/></b>
+    </td>
+  </tr>
+  <tr>
+    <td colspan= "6" width= "40%" align= "center"><p><b>Matricule :</b><span class="italic" id="matricule">
+       &nbsp;&nbsp;&nbsp;
+     </span><b>N° Sécurité sociale:</b><span class="italic" id="num_sec_social">
+     &nbsp;&nbsp;&nbsp;
+     </span></b></p>
+ <p><b>Date ancienneté :</b><span class="italic" id="date_ancien">
+  &nbsp;&nbsp;&nbsp;
+ </span></p></td>
+   
+  </tr>
+
+
+
+<tr>
+<td class="active" colspan="3" width= "20%"    align= "center"> <b>Emploi</b>
+   </td> 
+ <td class="active" colspan="3" width= "20%"  align= "center"> <b>Position</b>
+   </td>
+   <td class="active" colspan="3" width= "20%"  align= "center"> <b>Statut</b>
+   </td>
+   <td  colspan="7" rowspan="4" width= "40%"  align= "center"  >
+   <span class="italic" id="nom_employe"><b>
+    &nbsp;&nbsp;&nbsp;
+    </b></span><br />
+   <b><span class="italic" id="adresse_employe">
+  &nbsp;&nbsp;&nbsp;
+  </span></b>
+   </td>
+</tr>
+
+<tr>
+<td  colspan="3"  align= "center"> 
+   <span class="italic" id="emploi_1">
+&nbsp;&nbsp;&nbsp;
+    </span>
+   </td> 
+ <td  colspan="3"  align= "center"> 
+   <span class="italic" id="position_ech_coef_1">
+   &nbsp;&nbsp;&nbsp;
+    </span>
+   </td>
+   <td  colspan="3"  align= "center"> 
+   <span class="italic" id="statut_1"></span>
+   </td>
+</tr>
+<tr>
+<td class="active" colspan="9"  align= "center"> 
+   <b>CONVENTION COLLECTIVE</b>
+   </td>
+</tr>
+<tr>
+<td  colspan="9" align= "center"> 
+   <span class="italic" id="convention_collect">
+&nbsp;&nbsp;&nbsp;
+    </span>
+   </td>
+</tr>
+
+</table>
+
+<table class="table table-bordered">
+<tr>
+<td   colspan= "2" > </td>
+<td class="active"  colspan= "2" > Brut Imposable</td>
+<td class="active"  colspan= "2" >Base S.S </td>
+<td class="active"  colspan= "2">Plafond </td>
+<td class="active"  colspan= "2" >Cotisation Salariale </td>
+<td class="active"  colspan= "2">Cotisation patronale </td>
+<td class="active"  colspan= "2">Heures travaillés </td>
+<td class="active"  colspan= "2">Net imposable </td>
+</tr>
+
+<tr>
+<td   colspan= "2" >Mois </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+</tr>
+
+<tr>
+<td   colspan= "2" >Année </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+</tr>
+
+<tr>
+<td   colspan= "2" > </td>
+<td class="active"  colspan= "2" >Acquis N-1 </td>
+<td  class="active" colspan= "2" >Acquis N </td>
+<td class="active"  colspan= "2">Acquis mois </td>
+<td class="active"  colspan= "2" >Pris </td>
+<td class="active"  colspan= "2">Solde </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+</tr>
+
+<tr>
+<td   colspan= "2" >Congé payé </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2" > </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+<td   colspan= "2"> </td>
+</tr>
+
+
+
+
+
+</table>
+  </div>
+   </div>
+</div>
+
+
+{% endblock %}

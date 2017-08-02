@@ -1,0 +1,174 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | Document{% endblock %}
+
+{% block body %}
+
+
+          {{ include("JPFichePaieBundle:Compagny:menu.html.twig") }}
+
+
+                 <div class="col-md-8">
+                  <div class="content-box-large">
+                      
+                              
+              <div class="panel-heading">
+              <div class="panel-title"><b>Les bulletins achevés {{'('~resultnbre~')'}}</b></div>
+              
+              <div class="panel-options">
+                <a href="#" data-rel="collapse"><i id="blsasc" class="fa fa-sort-asc dir" aria-hidden="true"></i><i id="blsdesc"class="fa fa-sort-desc dir" aria-hidden="true"></i></a> 
+                
+              </div>
+            </div>
+              <div class="panel-body">
+                <table class="table">
+                      
+                      <tbody>
+                        {% if fichepaies is not null %}
+
+
+                                    {% for fp in fichepaies  %}
+                                         {% if fp.realise == '100%' %}
+                         <tr class="bls">
+                            <td> {{fp.dateheure |date("F jS \\a\\t g:ia")}}</td>
+                            <td> Fiche de paie de  <b> {{fp.infouser.nomprenom}}</b><br/>
+                              réalisé à <b><b>{{fp.realise}} </b></td>
+
+                               {% if fp.infouser.compagny.convention.id == 2 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_btp', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 3 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_prestationservice', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+                        
+                                 {% if fp.infouser.compagny.convention.id == 4 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_hcr', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 5 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_commercedetailgros', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 6 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_commercegros', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                    {% if fp.infouser.compagny.convention.id == 7 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_transportroutier', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 8 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_commercedetail', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 9 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_syntec', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 10 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_proprete', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+
+                                     {% if fp.infouser.compagny.convention.id == 11 %}
+                          <td><a class="btn btn-success btn-sm" href="{{path('fichepaie_msa', { 'id': fp.id })}}">telecharger <i class="fa fa-download"></i> </a>
+                              <a class="btn btn-default btn-sm" href="">envoyer par mail <i class="fa fa-envelope-o"></i> </a>                  
+                            </td> 
+                                    {% endif %}
+                                               
+
+                            {% endif %}
+                    {% endfor %}
+          
+         
+                           
+                                 
+                    
+       {% endif %}
+                      </tbody>
+                     
+                    </table>
+              </div>
+
+               <div class="panel panel-footer">
+                       <a class="btn btn-info btn-sm" href="{{path('jp_fiche_paie_fiche')}}">Creer une fiche <i class="fa fa-plus"></i> </a>
+                       </div>
+            </div>
+
+
+
+
+            <div class="content-box-large">
+              <div class="panel-heading">
+              <div class="panel-title"><b>Les bulletins en cours {% set foo = totnbre - resultnbre %}  {{'(' ~foo~ ')'}}</b></div>
+              
+              <div class="panel-options">
+                <a href="#" data-rel="collapse"><i class="fa fa-refresh"></i></a>
+                
+              </div>
+            </div>
+              <div class="panel-body">
+                <table class="table">
+                      
+                      <tbody>
+                         {% if fichepaies is not null %}
+                                    {% for fp in fichepaies  %}
+                                    {% if fp.realise != '100%' %}
+                                                     
+                          <tr>
+                           <td> {{fp.dateheure |date("F jS \\a\\t g:ia")}}</td>
+                            <td> Fiche de paie de  <b> {{fp.infouser.nomprenom}}</b><br/>
+                              réalisé à <b><b>{{fp.realise}} </b></td>
+                            
+                       
+                        <td> <a class="btn btn-warning btn-sm" href="{{path('jp_fiche_paie_editfiche', { 'id': fp.id })}}">Modifiez <i class="fa fa-edit"></i> </a></td>
+
+                             <td> <a class="btn btn-danger btn-sm" href="{{path('jp_fiche_paie_deletefiche', { 'id': fp.id })}}">Supprimer <i class="fa fa-trash-o"></i> </a></td>
+
+                              {% endif %}
+                              
+                         {% endfor %}
+          
+         
+                           
+                                 
+                     {% else %}
+        <h3 class="c"> Aucun bulletin en cours.<h3> 
+       {% endif %}
+                      </tbody>
+                    </table>
+              </div>
+            </div>
+
+
+
+
+
+
+                              </div>
+                              
+                    
+         
+  
+ 
+
+
+{% endblock %}

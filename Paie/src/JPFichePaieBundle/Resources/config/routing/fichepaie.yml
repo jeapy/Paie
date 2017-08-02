@@ -1,0 +1,46 @@
+fichepaie_btp:
+    path:     /{id}/btp
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:btp" }
+
+
+fichepaie_commercedetail:
+    path:     /{id}/commercedetail
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:commercedetail" }
+
+
+fichepaie_commercedetailgros:
+    path:     /{id}/commercedetailgros
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:commercedetailgros" }
+
+fichepaie_commercegros:
+    path:     /{id}/commercegros
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:commercegros" }
+
+
+fichepaie_hcr:
+    path:     /{id}/hcr
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:hcr" }
+
+
+fichepaie_msa:
+    path:     /{id}/msa
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:msa" }
+
+fichepaie_prestationservice:
+    path:     /{id}/prestationservice
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:prestationservice" }
+
+
+fichepaie_propriete:
+    path:     /{id}/propriete
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:propriete" }
+
+
+fichepaie_syntec:
+    path:     /{id}/syntec
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:syntec" }
+
+fichepaie_transportroutier:
+    path:     /{id}/transportroutier
+    defaults: { _controller: "JPFichePaieBundle:Fichepaie:transportroutier" }
+

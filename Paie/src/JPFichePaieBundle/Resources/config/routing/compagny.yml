@@ -1,0 +1,21 @@
+fiche_paie_compagny_index:
+    path:     /
+    defaults: { _controller: JPFichePaieBundle:Compagny:index }
+
+fiche_paie_compagny_new:
+    path:     /new
+    defaults: { _controller: JPFichePaieBundle:Compagny:new }
+
+fiche_paie_compagny_show:
+    path:     /{id}/show
+    defaults: { _controller: JPFichePaieBundle:Compagny:show }
+
+fiche_paie_compagny_edit:
+    path:     /{id}/edit
+    defaults: { _controller: JPFichePaieBundle:Compagny:edit }
+
+fiche_paie_compagny_delete:
+    path:     /{id}/delete
+    defaults: { _controller: JPFichePaieBundle:Compagny:delete }
+
+

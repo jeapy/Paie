@@ -1,0 +1,39 @@
+{% extends "JP\AdminBundle::layout.html.twig" %}
+
+{% block body %}
+    <h1>Typeusers list</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for typeUser in typeUsers %}
+            <tr>
+                <td><a href="{{ path('admin_typeuser_show', { 'id': typeUser.id }) }}">{{ typeUser.id }}</a></td>
+                <td>{{ typeUser.libelle }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_typeuser_show', { 'id': typeUser.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_typeuser_edit', { 'id': typeUser.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_typeuser_new') }}">Create a new typeUser</a>
+        </li>
+    </ul>
+{% endblock %}

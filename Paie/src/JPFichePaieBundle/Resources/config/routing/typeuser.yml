@@ -1,0 +1,24 @@
+admin_typeuser_index:
+    path:     /
+    defaults: { _controller: "JPFichePaieBundle:TypeUser:index" }
+    methods:  GET
+
+admin_typeuser_show:
+    path:     /{id}/show
+    defaults: { _controller: "JPFichePaieBundle:TypeUser:show" }
+    methods:  GET
+
+admin_typeuser_new:
+    path:     /new
+    defaults: { _controller: "JPFichePaieBundle:TypeUser:new" }
+    methods:  [GET, POST]
+
+admin_typeuser_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "JPFichePaieBundle:TypeUser:edit" }
+    methods:  [GET, POST]
+
+admin_typeuser_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "JPFichePaieBundle:TypeUser:delete" }
+    methods:  DELETE

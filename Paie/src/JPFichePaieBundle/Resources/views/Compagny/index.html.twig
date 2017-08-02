@@ -1,0 +1,59 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}JPFichePaieBundle:Compagny:index{% endblock %}
+
+{% block body %}
+
+
+
+    <div class="page-content" style="padding-bottom:240px;">
+      <div class="row">
+          {{ include("JPFichePaieBundle:Compagny:menu.html.twig") }}
+
+                 <div class="col-md-8">
+                  <div class="content-box-large">
+                   <h1>LISTE DES ENTREPRISES</h1>
+    <hr>
+<div >
+        <p class="text-right">
+            <a class ="btn btn-success" href="{{ path('fiche_paie_compagny_new')  }}"> <i class="fa fa-plus"></i> Ajouter</a>
+        </p>
+    </div>
+ 
+          
+    <table class="table table-bordered">
+        <thead class="info">
+            <tr>
+                <th >Id</th>
+                <th>Libelle</th>
+                <th >Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for compagny in compagny %}
+            <tr>
+                <td><a href="{{ path('fiche_paie_compagny_show', { 'id': compagny.id }) }}">{{ compagny.id }}</a></td>
+                <td>{{ compagny.name }}</td>
+                <td>
+                  <p>
+                            <a class ="btn btn-info" href="{{ path('fiche_paie_compagny_show', { 'id': compagny.id })  }}"><i class="fa fa-eye"></i> Detail </a>
+                     {% if compagny.createby == us or is_granted("ROLE_ADMIN") %}
+                            <a class ="btn btn-warning" href="{{ path('fiche_paie_compagny_edit', { 'id': compagny.id }) }}"><i class="fa fa-edit"></i> Modifier</a>
+                             {% endif %}
+                        </p>
+                    
+                  
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+                       </div>
+                              
+                      </div>
+                  </div>
+
+          </div>
+  
+{% endblock %}

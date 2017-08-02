@@ -1,0 +1,24 @@
+admin_emploi_index:
+    path:     /
+    defaults: { _controller: "JPAdminBundle:EmploiSalary:index" }
+    methods:  GET
+
+admin_emploi_show:
+    path:     /{id}/show
+    defaults: { _controller: "JPAdminBundle:EmploiSalary:show" }
+    methods:  GET
+
+admin_emploi_new:
+    path:     /new
+    defaults: { _controller: "JPAdminBundle:EmploiSalary:new" }
+    methods:  [GET, POST]
+
+admin_emploi_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "JPAdminBundle:EmploiSalary:edit" }
+    methods:  [GET, POST]
+
+admin_emploi_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "JPAdminBundle:EmploiSalary:delete" }
+    methods:  DELETE

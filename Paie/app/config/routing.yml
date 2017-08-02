@@ -1,0 +1,14 @@
+jp_admin:
+    resource: "@JPAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+jp_fiche_paie:
+    resource: "@JPFichePaieBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+#cunningsoft_chat_bundle:
+#    resource: "@CunningsoftChatBundle/Controller"
+  #  type: annotation

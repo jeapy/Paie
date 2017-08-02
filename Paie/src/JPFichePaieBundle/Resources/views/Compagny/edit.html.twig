@@ -1,0 +1,40 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}JPFichePaieBundle:Compagny:edit{% endblock %}
+
+{% block body %}
+<div class="page-content" style="padding-bottom:240px;">
+      <div class="row">
+         
+
+ {{ include("JPFichePaieBundle:Compagny:menu.html.twig") }}
+                 <div class="col-md-8">
+                  <div class="content-box-large">
+           
+
+ <h1>MODIFICATION ENTREPRISE</h1>
+    <hr>
+<div >
+        <p class="text-right">
+            <a class ="btn btn-success" href="{{ path('fiche_paie_compagny_index')  }}"> <i class="fa fa-reply"></i> Retour à la liste</a>
+        </p>
+    </div>
+ 
+
+    <div>           
+
+ {{ form_start(edit_form) }}
+        {{ form_widget(edit_form, { 'attr': { 'class': ' well' } }) }}
+        <input class="btn btn-success" type="submit" value="Valider" />
+    {{ form_end(edit_form) }}
+
+        </div>
+                              </div>
+                              
+                      </div>
+                  </div>
+
+          </div>
+  
+
+{% endblock %}

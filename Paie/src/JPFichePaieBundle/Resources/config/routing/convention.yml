@@ -1,0 +1,12 @@
+admin_convention_index:
+    path:     /
+    defaults: { _controller: "JPFichePaieBundle:Convention:index" }
+    methods:  GET
+
+admin_convention_show:
+    path:     /{id}/show
+    defaults: { _controller: "JPFichePaieBundle:Convention:show" }
+    methods:  GET
+
+
+

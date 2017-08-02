@@ -1,0 +1,38 @@
+{% extends "JP\AdminBundle::layout.html.twig" %}
+
+{% block body %}
+    <h1>Statussalaries list</h1>
+     <div >
+        <p class="text-right">
+            <a class ="btn btn-success" href="{{ path('admin_status_new') }}"> <i class="fa fa-plus"></i> Ajouter</a>
+        </p>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for statusSalary in statusSalaries %}
+            <tr>
+                <td><a href="{{ path('admin_status_show', { 'id': statusSalary.id }) }}">{{ statusSalary.id }}</a></td>
+                <td>{{ statusSalary.libelle }}</td>
+                <td>
+                    <p>
+                            <a class ="btn btn-info" href="{{ path('admin_status_show', { 'id': statusSalary.id }) }}"><i class="fa fa-eye"></i> Voir </a>
+                    
+                            <a class ="btn btn-warning" href="{{ path('admin_status_edit', { 'id': statusSalary.id }) }}"><i class="fa fa-edit"></i> Modifier</a>
+                        </p>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+{% endblock %}

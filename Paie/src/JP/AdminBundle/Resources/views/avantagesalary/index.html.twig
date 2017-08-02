@@ -1,0 +1,42 @@
+{% extends "JP\AdminBundle::layout.html.twig" %}
+
+{% block body %}
+<div class="content-box-large"> 
+                    <div class="panel-body">
+
+    <h1>LISTE AVANTAGE</h1>
+    <hr>
+<div >
+        <p class="text-right">
+            <a class ="btn btn-success" href="{{ path('admin_avantage_new')  }}"> <i class="fa fa-plus"></i> Ajouter</a>
+        </p>
+    </div>
+    <table class="table table-bordered">
+        <thead class="info">
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for avantageSalary in avantageSalaries %}
+            <tr>
+                <td><a href="{{ path('admin_avantage_show', { 'id': avantageSalary.id }) }}">{{ avantageSalary.id }}</a></td>
+                <td>{{ avantageSalary.libelle }}</td>
+                <td>
+                     <p>
+                            <a class ="btn btn-info" href="{{ path('admin_avantage_show', { 'id': avantageSalary.id }) }}"><i class="fa fa-eye"></i> Detail </a>
+                    
+                            <a class ="btn btn-warning" href="{{ path('admin_avantage_edit', { 'id': avantageSalary.id }) }}"><i class="fa fa-edit"></i> Modifier</a>
+                        </p>
+                    
+                   
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div></div>
+  
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}€ASYPAY | Profile{% endblock %}
+
+{% block body %}
+
+
+          {{ include("JPFichePaieBundle:Compagny:menu.html.twig") }}
+
+
+                 <div class="col-md-8">
+                  <div class="content-box-large">
+                      {% block fos_user_content %}
+                              {% include "FOSUserBundle:Profile:show_content.html.twig" %}
+                              {% endblock fos_user_content %}
+                             <a class="btn btn-warning" href="{{path('jp_fiche_paie_comptedit')}}" ><i class="fa fa-edit"></i> Modifiez le profil</a>
+                              </div>
+                              
+                      </div>
+                 
+  
+ 
+
+
+{% endblock %}
+    
+

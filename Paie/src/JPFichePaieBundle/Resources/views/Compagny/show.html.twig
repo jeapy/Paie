@@ -1,0 +1,65 @@
+{% extends "JPFichePaieBundle::login_layout.html.twig" %}
+
+{% block title %}JPFichePaieBundle:Compagny:show{% endblock %}
+
+{% block body %}
+<div class="page-content" style="padding-bottom:240px;">
+      <div class="row">
+          {{ include("JPFichePaieBundle:Compagny:menu.html.twig") }}
+
+                 <div class="col-md-8">
+                  <div class="content-box-large">
+                       <h1>DETAILS ENTREPRISE</h1>
+    <hr>
+<div >
+        <p class="text-right">
+            <a class ="btn btn-success" href="{{ path('fiche_paie_compagny_index')  }}"> <i class="fa fa-reply"></i> Retour à la liste</a>
+        </p>
+    </div>
+ 
+          
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ compagny.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ compagny.name }}</td>
+            </tr>
+             <tr>
+                <th>Adress</th>
+                <td>{{ compagny.address }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+   
+
+  
+     {% if compagny.createby == us or is_granted("ROLE_ADMIN") %}  
+      <div >
+        <p class="text-left">
+            <a class ="btn btn-primary" href="{{ path('fiche_paie_compagny_edit', { 'id': compagny.id })    }}"> <i class="fa fa-edit"></i> Modifier</a>
+        </p>
+    </div> 
+     <div >
+        <p class="text-right">
+             {{ form_start(delete_form) }}
+                <input class="btn btn-danger" type="submit" value="Supprimer">
+            {{ form_end(delete_form) }}
+        </p>
+        </div>
+        {% endif %}
+    
+ 
+                              </div>
+                              
+                      </div>
+                  </div>
+
+          </div>
+  
+{% endblock %}

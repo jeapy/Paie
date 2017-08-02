@@ -1,0 +1,16 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: 1061827
+    database_user: 1061827
+    database_password: loveuf33
+
+
+    mailer_transport: smtp
+    mailer_host: mail.ipwav.com
+    mailer_user: jean.zougou@ipwav.com
+    mailer_password: yesjedois01F
+    secret: 7031e661bc2eacbcb13ed6f06c04ae0638c7f8b7
+
+

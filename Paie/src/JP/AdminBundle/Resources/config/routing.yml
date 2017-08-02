@@ -1,0 +1,95 @@
+jp_admin_avantage:
+    resource: "@JPAdminBundle/Resources/config/routing/avantagesalary.yml"
+    prefix:   /avantage
+
+jp_admin_emploi:
+    resource: "@JPAdminBundle/Resources/config/routing/emploisalary.yml"
+    prefix:   /emploi
+
+jp_admin_offre:
+    resource: "@JPAdminBundle/Resources/config/routing/offre.yml"
+    prefix:   /offre
+
+
+jp_admin_position:
+    resource: "@JPAdminBundle/Resources/config/routing/positionsalary.yml"
+    prefix:   /position
+
+
+jp_admin_prime:
+    resource: "@JPAdminBundle/Resources/config/routing/primesalary.yml"
+    prefix:   /prime
+
+
+jp_admin_status:
+    resource: "@JPAdminBundle/Resources/config/routing/statussalary.yml"
+    prefix:   /status
+
+
+jp_admin_modepaie:
+    resource: "@JPAdminBundle/Resources/config/routing/modepaie.yml"
+    prefix:   /modepaie
+
+jp_admin_user:
+    resource: "@JPAdminBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+jp_admin_homepage:
+    path:     /
+    defaults: { _controller: JPAdminBundle:Admin:index }
+
+#Convention Router
+
+admin_convention_show:
+    path:    /convention/show/{id}
+    defaults: 
+        _controller: JPAdminBundle:Convention:show 
+
+admin_convention_new:
+    path:     /convention/new
+    defaults: 
+        _controller: JPAdminBundle:Convention:new 
+
+admin_convention_edit:
+    path:     /convention/edit/{id}
+    defaults: 
+        _controller: JPAdminBundle:Convention:edit 
+
+admin_convention_index:
+    path:     /convention/
+    defaults: 
+        _controller: JPAdminBundle:Convention:index 
+
+admin_convention_delete:
+    path:     /convention/delete/{id}
+    defaults: 
+        _controller: JPAdminBundle:Convention:delete
+
+
+#Type User Router
+
+admin_typeuser_show:
+    path:    /typeuser/show/{id}
+    defaults: 
+        _controller: JPAdminBundle:TypeUser:show 
+
+admin_typeuser_new:
+    path:     /typeuser/new
+    defaults: 
+        _controller: JPAdminBundle:TypeUser:new 
+
+admin_typeuser_edit:
+    path:     /typeuser/edit/{id}
+    defaults: 
+        _controller: JPAdminBundle:TypeUser:edit 
+
+admin_typeuser_index:
+    path:     /typeuser/
+    defaults: 
+        _controller: JPAdminBundle:TypeUser:index 
+
+admin_typeuser_delete:
+    path:     /typeuser/delete/{id}
+    defaults: 
+        _controller: JPAdminBundle:TypeUser:delete
+

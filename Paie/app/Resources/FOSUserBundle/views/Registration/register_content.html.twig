@@ -1,0 +1,25 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+              <div class="box">
+                  <div class="content-wrap">
+                      <img src="{{ asset('bundles/jpfichepaie/img/logo.png') }}">
+<h1 class="space">ENREGISTREMENT</h1>
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+    <div>
+        <input class="btn btn-success" type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+    
+{{ form_end(form) }}
+</div>
+                 
+</div>
+
+    
+    <div class="already">
+                  <p>Vous avez deja un compte ? </p><br>
+                    <p><a href="{{ path("fos_user_security_login") }}">Connectez vous</a></p>
+
+              </div>
+
+              

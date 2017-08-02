@@ -1,0 +1,85 @@
+
+parameters:
+#    parameter_name: value
+
+    title1: Salaire Mensuel
+    title2: Heures Suplémentaires 125%
+    title3: TOTAL BRUT
+
+    title4: Assurance Maladie Mat Inv Décès
+    title5: Vieillesse Déplafonnée
+    title6: Vieillesse Plafonnée
+    title7: Allocations Familiales
+    title8: Complément Alloc Familiales
+    title9: Accident de travail
+    title10: Contribution de solidarité
+    title11: FNAL Plafonnée -20 salariés
+    title12: Versement transport
+    title13: Pôle Emploi Tr a + Tr B
+    title14: Cot AGS (F.N.G.S)
+    title15: Cot Retraite Compl Tr A
+    title16: Cot Retraite Compl Tr B
+    title17: Cot Retraite GMP
+    title18: Contrib Except CET
+    title19: APEC Tr A
+    title20: APEC Tr B
+    title21: Cot AGFF Tr A 
+    title22: Cot AGFF Tr B
+    title23: Prévoyance non cadre Tr A
+    title24: Prévoyance non cadre Tr B
+    title25: Prévoyance Cadre Tr A
+    title26: Prévoyance Cadre Tr B
+    title27: Mutuelle 
+    title28: Forfait Social
+    title29: Taxe d'Apprentissage
+    title30: Formation 1 à 9 sal 
+    title31: Contribution Syndicale 
+    title32: Déduction Heures Supp -20 sal
+    title33: CSG Déductible
+    title34: Réint Impôt S/Mut
+    title35: TOTAL COTISATIONS DEDUCTIBLES
+    title36: CSG Imposable
+    title37: CRDS
+    title38: TOTAL AUTRES COTISATIONS
+    title39: TOTAL NET IMPOSABLE
+    title40: Congés payés
+    title41: Prévoyance Inapt IPRIAC
+    title42: Prévoyance CCN Tr A
+    title43: Prévoyance CCN Tr B
+    title44: Gratification de stage
+    title45: Indemnité de Repas
+ #   title46: Avantage Repas
+    title47: Rente Education OCIRP Empl Tr A
+    title48: Cot Prévoyance Maint Sal Tr A
+    title49: Formation 1 à 9 sal Conv NMaj
+    title50: Taxe Formation 1 à 9 sal  Maj
+    title51: Frais de transport
+ #   title52: Reprise des avantages en nature 
+    title53: Paniers BTP soumis
+#    title54: Prime de paniers
+    title55: Retraite Non Cadre Tranche A
+    title56: Retraite Non Cadre Tranche B
+    title57: APNAB Cot Financement BTP
+    title58: O.P.P.B.T.P Bâtiment CCPB
+    title59: Heures Suplémentaires 150%
+    title60: Heures Suplémentaires 110%
+ #   title61: Prévoyance Employés Tr A
+#    title62: Ret Avantage Nature
+#    title63: AGFF Ouvrier Tr A
+ #   title64: AGFF Ouvrier Tr B
+ #   title65: Prévoyance Ouvrier TrA
+#    title66: Prévoyance Ouvrier TrB
+    title67: Médecine du Travail
+    title68: AFNCA/ANEFA/PROVEA
+    title69: ASCPA
+ #   title70: Indemnité de repas
+    title71: Indemnité kilométriques
+#    title72: Prime
+    title73: Avantages en nature
+
+    title74: Tickets restaurant
+    title75: Acompte
+
+    plafond: 3218
+    smic: 1466.65
+    app_webmaster: JPZ Conception

@@ -1,0 +1,207 @@
+imports:
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: variable.yml }
+    - { resource: "@JPFichePaieBundle/Resources/config/services.yml" }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: fr
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+    globals:
+        webmaster: %app_webmaster%
+        title1: %title1%
+        title2: %title2%
+        title3: %title3%
+        title4: %title4%
+        title5: %title5%
+        title6: %title6%
+        title7: %title7%
+        title8: %title8%
+        title9: %title9%
+        title10: %title10%
+
+        title11: %title11%
+        title12: %title12%
+        title13: %title13%
+        title14: %title14%
+        title15: %title15%
+        title16: %title16%
+        title17: %title17%
+        title18: %title18%
+        title19: %title19%
+        title20: %title20%
+
+        title21: %title21%
+        title22: %title22%
+        title23: %title23%
+        title24: %title24%
+        title25: %title25%
+        title26: %title26%
+        title27: %title27%
+        title28: %title28%
+        title29: %title29%
+        title30: %title30%
+
+
+        title31: %title31%
+        title32: %title32%
+        title33: %title33%
+        title34: %title34%
+        title35: %title35%
+        title36: %title36%
+        title37: %title37%
+        title38: %title38%
+        title39: %title39%
+
+        title40: %title40%
+        title41: %title41%
+        title42: %title42%
+        title43: %title43%
+        title44: %title44%
+        title45: %title45%
+ #       title46: %title46%
+        title47: %title47%
+        title48: %title48%
+        title49: %title49%
+        title50: %title50%
+
+        title51: %title51%
+ #       title52: %title52%
+        title53: %title53%
+ #       title54: %title54%
+        title55: %title55%
+        title56: %title56%
+        title57: %title57%
+        title58: %title58%
+        title59: %title59%
+        title60: %title60%
+
+  #      title61: %title61%
+   #     title62: %title62%
+    #    title63: %title63%
+     #   title64: %title64%
+      #  title65: %title65%
+       # title66: %title66%
+        title67: %title67%
+        title68: %title68%
+        title69: %title69%
+     #   title70: %title70%
+
+        title71: %title71%
+     #   title72: %title72%
+        title73: %title73%
+        title74: %title74%
+        title75: %title75%
+
+        plafond: %plafond%
+        smic: %smic%
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+       # resolve_target_entities:
+       # Cunningsoft\ChatBundle\Entity\AuthorInterface:  JPFichePaieBundle\Entity\User
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+    encryption: ssl
+    auth_mode:  login
+
+
+#Assetic Configuration
+assetic:
+  debug:          '%kernel.debug%'
+  use_controller: '%kernel.debug%'
+  filters:
+    cssrewrite: ~
+    jsqueeze:   ~
+#FOS User Configuration
+fos_user:
+    db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class:    JPFichePaieBundle\Entity\User # La classe de l'entité User que nous utilisons
+
+    service:
+        mailer: fos_user.mailer.twig_swift
+
+    registration:
+        confirmation:
+            enabled: true
+            template:   FOSUserBundle:Registration:email.txt.twig
+            from_email:
+                address:        registration@example.com
+                sender_name:    Demo Registration
+
+
+#PDF generator Configuration
+knp_snappy:
+    temporary_folder: %kernel.cache_dir%/snappy
+    pdf:
+        enabled:    true
+        binary:     "%kernel.root_dir%/../vendor/wkhtmltopdf-windows/bin/64bit/wkhtmltopdf.exe"   
+        options:
+            - { name: 'viewport-size', value: ‘1024x768’ }
+            - { name: 'page-size', value: 'A4' }
+
+#cunningsoft_chat:
+    # refresh interval in milliseconds
+#    update_interval: 5000
+    # messages to be shown in chat
+#    number_of_messages: 10

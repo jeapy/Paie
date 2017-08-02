@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}€ASYPAY{% endblock %}</title>
+  {% stylesheets filter='cssrewrite'
+  'bundles/jpfichepaie/css/bootstrap.min.css'
+  'bundles/jpfichepaie/css/bootstrap-theme.min.css'
+   'bundles/jpfichepaie/css/styles.css' %}  
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+{% endstylesheets %}
+    
+  </head>
+  <body>
+    
+    <div class="header">
+       <div class="container">
+          <div class="row">
+             
+<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"><img alt="EASYPAY" src="{{ asset('bundles/jpfichepaie/img/logo.png') }}"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">         
+      <ul class="nav navbar-nav navbar-right">     
+          <li><a href="{{path('jp_fiche_paie_home')}}" >SITE</a></li>      
+           <li><a href="{{ path('fos_user_security_logout') }}">DECONNEXION</a></li>
+                 </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+          </div>
+       </div>
+  </div>
+
+    <div class="page-cont">
+       <div class="row">
+
+           
+ <div class="col-md-4">
+            <div class="sidebar content-box" style="display: block;">
+                    <ul class="nav">
+
+
+
+              <li ><a href="{{ path('jp_admin_homepage') }}" >ACCUEIL</a></li>
+                <li><a href="">UTILISATEUR</a></li>
+              <li class="submenu"><a>PARAMETRE</a> </li> 
+            </ul>
+
+                <ul class="nav">
+                        <li><a href="{{ path('admin_convention_index') }}">=> CONVENTION COMPAGNY</a></li>
+                        <li><a href="{{ path('admin_status_index') }}">=> STATUT SALARY</a></li>
+                        <li><a href="{{ path('admin_emploi_index') }}">=> EMPLOI SALARY</a></li>
+                        <li><a href="{{ path('admin_position_index') }}">=> POSITION SALARY</a></li>
+                        <li><a href="{{ path('admin_prime_index') }}">=> PRIME</a></li>
+                        <li><a href="{{ path('admin_avantage_index') }}">=> AVANTAGE</a></li>
+                          <li><a href="{{ path('admin_modepaie_index') }}">=> MODE DE PAIEMENT</a></li>
+                        <li><a href="{{ path('admin_offre_index') }}">=> OFFRE</a></li>
+                        <li><a href="{{ path('admin_user_index') }}">=> UTILISATEUR</a></li>
+                       
+                      
+                        <li><a href="">=>COMPAGNY</a></li>
+                      </ul>
+                  
+
+
+                </div>
+              </div>
+
+   
+      
+  
+
+  <div class="col-md-8">
+      
+      {% block body %}
+
+        {% endblock %}
+</div>
+
+         
+
+        </div>   
+
+        </div>
+   
+
+    <footer>
+         <div class="container">
+         
+            <div class="copy text-center">
+             
+                &copy;{{ 'now'|date('Y') }} JPZ Conception.<br>
+      Design by <a href="http://www.jpzougou.pro">JPZ Conception</a> 
+     
+            </div>
+            
+         </div>
+      </footer>
+
+
+  {% javascripts filter='jsqueeze'
+  'bundles/jpfichepaie/js/bootstrap.min.js' 
+  'bundles/jpfichepaie/js/custom.js'
+   %}
+   <script src="https://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript" src="{{ asset_url }}"></script>
+
+{% endjavascripts %}
+
+
+
+
+  </body>
+</html>
